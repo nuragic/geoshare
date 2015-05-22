@@ -5,9 +5,9 @@ import { Component } from 'react';
 
 import leafletMixin from './leafletMixin';
 
-const reactStamp = stampit.convertConstructor(Component);
+const reactComp = stampit.convertConstructor(Component);
 
-export default stampit.compose(reactStamp)
+export default stampit.compose(reactComp)
   .methods(leafletMixin)
   .methods({
     componentWillMount() {
@@ -33,5 +33,4 @@ export default stampit.compose(reactStamp)
         el.off(ev, this._leafletEvents[ev]);
       });
     }
-  }
-);
+  });

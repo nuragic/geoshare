@@ -1,53 +1,56 @@
 'use strict';
 
-import React from 'react';
-import alt from '../alt';
 import AltContainer from 'alt/AltContainer';
+import React from 'react';
+import ThemeManager from 'material-ui/lib/styles/theme-manager';
+import { compose, convertConstructor, extend } from 'stampit';
+
+import alt from '../alt';
 import App from './App';
 import AppActions from '../actions/AppActions';
 import AppStore from '../stores/AppStore';
-
 import theme from '../style/themes/default-theme';
-import ThemeManager from 'material-ui/lib/styles/theme-manager';
-
-const themeManager = new ThemeManager();
-themeManager.setTheme(theme);
 
 // webpack
 require('../style/app.less');
 
-class Wrapper extends React.Component {
-  getChildContext() {
-    return Object.assign(
-      {}, this.props.initData.ctx, { muiTheme: themeManager.getCurrentTheme() }
-    );
-  }
+const reactComp = convertConstructor(React.Component);
+const themeManager = new ThemeManager();
+themeManager.setTheme(theme);
 
-  componentWillMount() {
-    alt.bootstrap(JSON.stringify(this.props.initData.state));
+let wrapper = compose(reactComp)
+  .methods({
+    getChildContext() {
+      return Object.assign(
+        {}, this.props.initData.ctx, { muiTheme: themeManager.getCurrentTheme() }
+      );
+    },
 
-    // force state update this render cycle
-    this.setState(AppStore.getState());
-  }
+    componentWillMount() {
+      alt.bootstrap(JSON.stringify(this.props.initData.state));
 
-  render() {
-    return (
-      <AltContainer actions={AppActions} store={AppStore} >
-        <App />
-      </AltContainer>
-    );
-  }
-}
+      // force state update this render cycle
+      this.setState(AppStore.getState());
+    },
 
-Wrapper.childContextTypes = {
-  tag: React.PropTypes.string.isRequired,
-  loggedIn: React.PropTypes.bool.isRequired,
-  muiTheme: React.PropTypes.object,
-  repoUrl: React.PropTypes.string.isRequired,
-};
+    render() {
+      return (
+        <AltContainer actions={AppActions} store={AppStore} >
+          <App />
+        </AltContainer>
+      );
+    },
+  });
 
-Wrapper.propTypes = {
-  initData: React.PropTypes.object.isRequired,
-};
+export default extend(wrapper, {
+  childContextTypes: {
+    tag: React.PropTypes.string.isRequired,
+    loggedIn: React.PropTypes.bool.isRequired,
+    muiTheme: React.PropTypes.object,
+    repoUrl: React.PropTypes.string.isRequired,
+  },
 
-export default Wrapper;
+  propTypes: {
+    initData: React.PropTypes.object.isRequired,
+  },
+});
