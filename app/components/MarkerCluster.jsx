@@ -1,22 +1,19 @@
 'use strict';
 
-import React from 'react';
 import Leaflet from 'leaflet';
-import MarkerPopup from './MarkerPopup';
-import { MapLayer } from 'react-leaflet';
-
+import React from 'react';
+import { compose, extend } from 'stampit';
 require('leaflet.markercluster');
 
-class MarkerCluster extends MapLayer {
-  componentWillMount() {
-    super.componentWillMount();
+import leafletLayer from './lib/leafletLayer';
+import MarkerPopup from './MarkerPopup';
 
+let markerCluster = compose(leafletLayer).methods({
+  componentWillMount() {
     this.leafletElement = Leaflet.markerClusterGroup();
-  }
+  },
 
   componentWillReceiveProps(nextProps) {
-    super.componentWillReceiveProps(nextProps);
-
     // add markers to cluster layer
     if (nextProps.newMarkerData.length > 0) {
       let markers = Object.assign({}, this.props.markers);
@@ -55,29 +52,28 @@ class MarkerCluster extends MapLayer {
         marker.openPopup();
       });
     }
-  }
+  },
 
   shouldComponentUpdate() {
     return false;
-  }
+  },
 
   render() {
     return null;
-  }
-}
+  },
+});
 
-MarkerCluster.propTypes = {
-  focusMarker: React.PropTypes.object,
-  map: React.PropTypes.object,
-  markers: React.PropTypes.object,
-  newMarkerData: React.PropTypes.array,
-  updateMarkers: React.PropTypes.func,
-};
+export default extend(markerCluster, {
+  propTypes: {
+    focusMarker: React.PropTypes.object,
+    markers: React.PropTypes.object,
+    newMarkerData: React.PropTypes.array,
+    updateMarkers: React.PropTypes.func,
+  },
 
-MarkerCluster.defaultProps = {
-  markers: {},
-  newMarkerData: [],
-  focusMarker: {},
-};
-
-export default MarkerCluster;
+  defaultProps: {
+    markers: {},
+    newMarkerData: [],
+    focusMarker: {},
+  },
+});
