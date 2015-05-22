@@ -1,28 +1,31 @@
 'use strict';
 
-import leafletMap from './leafletMap';
 import React from 'react';
 import stampit from 'stampit';
 
-export default stampit.compose(leafletMap).methods({
-  componentDidMount() {
-    leafletMap.fixed.methods.componentDidMount.call(this);
+import leafletMap from './leafletMap';
 
-    this.props.map.addLayer(this.leafletElement);
-  },
+export default stampit.compose(leafletMap)
+  .methods({
+    componentDidMount() {
+      leafletMap.fixed.methods.componentDidMount.call(this);
 
-  componentWillUnmount() {
-    leafletMap.fixed.methods.componentWillUnmount.call(this);
+      this.props.map.addLayer(this.leafletElement);
+    },
 
-    this.props.map.removeLayer(this.leafletElement);
-  },
+    componentWillUnmount() {
+      leafletMap.fixed.methods.componentWillUnmount.call(this);
 
-  getClonedChildrenWithMap(extra) {
-    const {children, map} = this.props;
-    const props = Object.assign({map}, extra);
+      this.props.map.removeLayer(this.leafletElement);
+    },
 
-    return React.Children.map(children, child => {
-      return child ? React.cloneElement(child, props) : null;
-    });
+    getClonedChildrenWithMap(extra) {
+      const {children, map} = this.props;
+      const props = Object.assign({map}, extra);
+
+      return React.Children.map(children, child => {
+        return child ? React.cloneElement(child, props) : null;
+      });
+    }
   }
-});
+);
