@@ -1,13 +1,11 @@
 'use strict';
 
+import reactStamp from 'react-stamp';
 import stampit from 'stampit';
-import { Component } from 'react';
 
 import leafletMixin from './leafletMixin';
 
-const reactComp = stampit.convertConstructor(Component);
-
-export default stampit.compose(reactComp)
+export default stampit.compose(reactStamp)
   .methods(leafletMixin)
   .methods({
     componentWillMount() {

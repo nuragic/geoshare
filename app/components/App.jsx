@@ -5,8 +5,9 @@ const isBrowser = typeof window !== 'undefined';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import io from 'socket.io-client';
 import React from 'react';
+import reactStamp from 'react-stamp';
 import Snackbar from 'material-ui/lib/snackbar';
-import { compose, convertConstructor, extend } from 'stampit';
+import { compose, extend } from 'stampit';
 
 import List from './List';
 // TODO how to handle the es6 way?
@@ -18,10 +19,9 @@ if (isBrowser) {
   socket = io();
 }
 
-const reactComp = convertConstructor(React.Component);
 injectTapEventPlugin();
 
-let app = compose(reactComp)
+let app = compose(reactStamp)
   .methods({
     componentDidMount() {
       socket.on('data:add', this._onNewData.bind(this));

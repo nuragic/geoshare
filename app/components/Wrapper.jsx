@@ -2,8 +2,9 @@
 
 import AltContainer from 'alt/AltContainer';
 import React from 'react';
+import reactStamp from 'react-stamp';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
-import { compose, convertConstructor, extend } from 'stampit';
+import { compose, extend } from 'stampit';
 
 import alt from '../alt';
 import App from './App';
@@ -14,11 +15,10 @@ import theme from '../style/themes/default-theme';
 // webpack
 require('../style/app.less');
 
-const reactComp = convertConstructor(React.Component);
 const themeManager = new ThemeManager();
 themeManager.setTheme(theme);
 
-let wrapper = compose(reactComp)
+let wrapper = compose(reactStamp)
   .methods({
     getChildContext() {
       return Object.assign(
