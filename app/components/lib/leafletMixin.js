@@ -22,7 +22,7 @@ export default {
     const el = this.leafletElement;
 
     if (!el) {
-      return;
+      return undefined;
     }
 
     const diff = Object.assign({}, prev);
@@ -50,5 +50,5 @@ export default {
     if (el) {
       el.fire(type, data);
     }
-  }
+  },
 };

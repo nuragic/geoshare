@@ -32,5 +32,5 @@ export default stampit.compose(reactComp)
       Object.keys(this._leafletEvents).forEach((ev) => {
         el.off(ev, this._leafletEvents[ev]);
       });
-    }
+    },
   });

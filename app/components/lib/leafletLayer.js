@@ -26,5 +26,5 @@ export default stampit.compose(leafletMap)
       return React.Children.map(children, child => {
         return child ? React.cloneElement(child, props) : null;
       });
-    }
+    },
   });
