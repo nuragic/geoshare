@@ -1,8 +1,10 @@
 'use strict';
 
+import stampit from 'stampit';
+
 const EVENTS_RE = /on(?:Leaflet)?(.+)/i;
 
-export default {
+export default stampit({
   getLeafletElement() {
     return this.leafletElement;
   },
@@ -51,4 +53,4 @@ export default {
       el.fire(type, data);
     }
   },
-};
+});

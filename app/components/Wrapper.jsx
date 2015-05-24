@@ -2,9 +2,8 @@
 
 import AltContainer from 'alt/AltContainer';
 import React from 'react';
-import reactStamp from 'react-stamp';
+import stampit from 'react-stampit';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
-import { compose, extend } from 'stampit';
 
 import alt from '../alt';
 import App from './App';
@@ -18,31 +17,7 @@ require('../style/app.less');
 const themeManager = new ThemeManager();
 themeManager.setTheme(theme);
 
-let wrapper = compose(reactStamp)
-  .methods({
-    getChildContext() {
-      return Object.assign(
-        {}, this.props.initData.ctx, { muiTheme: themeManager.getCurrentTheme() }
-      );
-    },
-
-    componentWillMount() {
-      alt.bootstrap(JSON.stringify(this.props.initData.state));
-
-      // force state update this render cycle
-      this.setState(AppStore.getState());
-    },
-
-    render() {
-      return (
-        <AltContainer actions={AppActions} store={AppStore} >
-          <App />
-        </AltContainer>
-      );
-    },
-  });
-
-export default extend(wrapper, {
+export default stampit(React, {
   childContextTypes: {
     tag: React.PropTypes.string.isRequired,
     loggedIn: React.PropTypes.bool.isRequired,
@@ -52,5 +27,26 @@ export default extend(wrapper, {
 
   propTypes: {
     initData: React.PropTypes.object.isRequired,
+  },
+
+  getChildContext() {
+    return Object.assign(
+      {}, this.props.initData.ctx, { muiTheme: themeManager.getCurrentTheme() }
+    );
+  },
+
+  componentWillMount() {
+    alt.bootstrap(JSON.stringify(this.props.initData.state));
+
+    // force state update this render cycle
+    this.setState(AppStore.getState());
+  },
+
+  render() {
+    return (
+      <AltContainer actions={AppActions} store={AppStore} >
+        <App />
+      </AltContainer>
+    );
   },
 });
