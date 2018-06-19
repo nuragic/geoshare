@@ -14,7 +14,9 @@
     "prod": "babel-node --ignore 'node_modules','build' config/serverProd",
     "test": "npm run lint && npm run test-jsx && npm run test-js",
     "test-js": "mocha ./test/lib ./test/app/actions ./test/app/stores --compilers js:babel/register",
-    "test-jsx": "mochify babel/polyfill ./test/app/components/* --reporter spec --transform [ babelify --stage 1 ] --extension .jsx"
+    "test-jsx": "mochify babel/polyfill ./test/app/components/* --reporter spec --transform [ babelify --stage 1 ] --extension .jsx",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -34,9 +36,9 @@
     "config": "^1.13.0",
     "css-loader": "^0.14.2",
     "extract-text-webpack-plugin": "^0.8.0",
-    "good": "^6.1.3",
-    "good-console": "^5.0.0",
-    "hapi-auth-cookie": "^2.2.0",
+    "good": "^7.1.0",
+    "good-console": "^6.1.2",
+    "hapi-auth-cookie": "^7.0.0",
     "hapi-shutdown": "^0.1.1",
     "html-loader": "^0.3.0",
     "instagram-node": "^0.5.7",
@@ -44,7 +46,7 @@
     "json5": "^0.4.0",
     "leaflet": "^0.7.3",
     "leaflet.markercluster": "Leaflet/Leaflet.markercluster#v0.4.0-hotfix.1",
-    "less": "^2.5.1",
+    "less": "^3.0.2",
     "less-loader": "^2.2.0",
     "material-ui": "^0.8.0",
     "react": "^0.13.3",
@@ -57,7 +59,8 @@
     "stats-webpack-plugin": "0.1.0",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6",
-    "webpack": "^1.9.9"
+    "webpack": "^1.9.9",
+    "snyk": "^1.83.0"
   },
   "devDependencies": {
     "babel-eslint": "^3.1.9",
@@ -73,5 +76,6 @@
     "rewire": "^2.3.3",
     "sinon": "^1.14.1",
     "webpack-dev-server": "^1.9.0"
-  }
+  },
+  "snyk": true
 }
