@@ -14,7 +14,9 @@
     "prod": "babel-node --ignore 'node_modules','build' config/serverProd",
     "test": "npm run lint && npm run test-jsx && npm run test-js",
     "test-js": "mocha ./test/lib ./test/app/actions ./test/app/stores --compilers js:babel/register",
-    "test-jsx": "mochify babel/polyfill ./test/app/components/* --reporter spec --transform [ babelify --stage 1 ] --extension .jsx"
+    "test-jsx": "mochify babel/polyfill ./test/app/components/* --reporter spec --transform [ babelify --stage 1 ] --extension .jsx",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -29,8 +31,8 @@
   "dependencies": {
     "alt": "0.16.5",
     "autoprefixer-loader": "^1.2.0",
-    "babel": "^5.4.7",
-    "babel-loader": "^5.1.3",
+    "babel": "^6.0.0",
+    "babel-loader": "^6.0.0",
     "config": "^1.13.0",
     "css-loader": "^0.14.2",
     "extract-text-webpack-plugin": "^0.8.0",
@@ -49,7 +51,7 @@
     "material-ui": "^0.8.0",
     "react": "^0.13.3",
     "react-hot-loader": "^1.2.7",
-    "react-leaflet": "^0.6.1",
+    "react-leaflet": "^0.10.1",
     "react-tap-event-plugin": "^0.1.7",
     "redis": "^0.12.1",
     "socket.io": "^1.3.5",
@@ -57,7 +59,8 @@
     "stats-webpack-plugin": "0.1.0",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6",
-    "webpack": "^1.9.9"
+    "webpack": "^1.9.9",
+    "snyk": "^1.88.0"
   },
   "devDependencies": {
     "babel-eslint": "^3.1.9",
@@ -73,5 +76,6 @@
     "rewire": "^2.3.3",
     "sinon": "^1.14.1",
     "webpack-dev-server": "^1.9.0"
-  }
+  },
+  "snyk": true
 }
