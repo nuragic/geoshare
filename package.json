@@ -44,7 +44,7 @@
     "json5": "^0.4.0",
     "leaflet": "^0.7.3",
     "leaflet.markercluster": "Leaflet/Leaflet.markercluster#v0.4.0-hotfix.1",
-    "less": "^2.5.1",
+    "less": "^3.0.2",
     "less-loader": "^2.2.0",
     "material-ui": "^0.8.0",
     "react": "^0.13.3",
